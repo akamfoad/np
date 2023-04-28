@@ -1,6 +1,6 @@
 import { json } from "@remix-run/node"
+import { useLoaderData } from "@remix-run/react"
 import type { LoaderArgs } from "@remix-run/node"
-import { useLoaderData, useSearchParams } from "@remix-run/react"
 
 import { Package } from "~/components/Package"
 import { Packages } from "~/components/Packages"
@@ -13,7 +13,7 @@ import { getSearchResults } from "~/api/search"
 import { searchPerPageSize as size } from "~/shared/general"
 import type { SearchResponse, TransformedPackageType } from "~/utils/types"
 
-export const loader = async ({ request }: LoaderArgs) => {
+export const loader = async ({ request, params }: LoaderArgs) => {
   const { searchParams } = new URL(request.url)
 
   const newSearchParams = new URLSearchParams()
@@ -22,7 +22,9 @@ export const loader = async ({ request }: LoaderArgs) => {
 
   const q = searchParams.get("q")
 
-  if (q) newSearchParams.set("text", q)
+  const textSearch = `maintainer:${params.username} ${q ? q : ""}`.trimEnd()
+
+  newSearchParams.set("text", textSearch)
 
   const page = searchParams.get("page")
 
@@ -87,22 +89,12 @@ export const loader = async ({ request }: LoaderArgs) => {
   })
 }
 
-export default function Index() {
-  const [searchParams] = useSearchParams()
+export default function UserProfile() {
   const loaderData = useLoaderData<typeof loader>()
 
-  const currentQuery = searchParams.get("q")
-
   return (
-    // use nice here patterns
-    // see npm.io
     <SearchLayout>
-      <SearchForm
-        placeholder={loaderData.randomPackageName}
-        // We might need to take into consideration others params as well
-        // maybe use sp.size?
-        isSmall={currentQuery !== null && currentQuery.trim().length !== 0}
-      />
+      <SearchForm placeholder={loaderData.randomPackageName} />
       <Packages shown={loaderData?.packages?.length > 0}>
         {loaderData.packages.map(
           ({ name, description, keywords, publisher, version, date }) => {
@@ -115,7 +107,6 @@ export default function Index() {
                 publisher={publisher}
                 version={version}
                 date={date}
-                isExactMatch={currentQuery === name}
               />
             )
           },
@@ -127,7 +118,7 @@ export default function Index() {
           isFirst={loaderData.meta.isFirst}
           pageNumber={loaderData.meta.page}
           totalPages={loaderData.meta.totalPages}
-          shown={loaderData.meta.totalPages > size}
+          shown={loaderData.meta.totalPackages > size}
         />
       )}
     </SearchLayout>
