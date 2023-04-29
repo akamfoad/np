@@ -53,6 +53,7 @@ export const Package: FC<PackageProps> = ({
           to={`https://www.npmjs.com/package/${name}`}
           target="_blank"
           referrerPolicy="no-referrer"
+          title="Temporarily opening the package on NPM website, until I add a page for the packages (not promising anything 😁)"
         >
           {name}
         </Link>
