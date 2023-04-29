@@ -25,3 +25,5 @@ export interface SearchResponse {
   objects: { package: PackageType }[]
   total: number
 }
+
+export type Theme = "dark" | "light"

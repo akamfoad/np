@@ -33,7 +33,7 @@ export const SearchForm: FC<SearchFormProps> = ({
       <div>
         <h1
           className={classNames(
-            "transition-all ease-in font-black text-center",
+            "transition-all ease-in font-black text-center dark:text-lime-500",
             {
               "text-4xl sm:text-7xl duration-100": !isSmall,
               "text-2xl sm:text-4xl duration-200": isSmall,
@@ -58,7 +58,7 @@ export const SearchForm: FC<SearchFormProps> = ({
           key={currentQuery}
           className={classNames(
             "appearance-none rounded-md w-full rounded-l-lg rounded-r-none focus:outline-none px-3 sm:px-6 text-base sm:text-lg",
-            "leading-loose bg-slate-50",
+            "leading-loose bg-slate-50 dark:bg-slate-950 dark:placeholder:text-slate-400",
           )}
           type="search"
           aria-label="Search"
@@ -74,8 +74,8 @@ export const SearchForm: FC<SearchFormProps> = ({
           className={classNames(
             "transition-colors duration-200 ease-in-out",
             "disabled:bg-lime-500/50",
-            "hover:bg-lime-500/80 active:bg-lime-600",
-            "bg-lime-500 text-white ring-2 ring-transparent",
+            "hover:bg-lime-500/80 active:bg-lime-600 dark:active:bg-lime-600",
+            "bg-lime-500 text-white dark:bg-lime-600 ring-2 ring-transparent",
             "aspect-square h-full flex items-center justify-center rounded-r-lg rounded-l-none",
             "focus:outline-none focus:ring-lime-700",
           )}
@@ -84,6 +84,25 @@ export const SearchForm: FC<SearchFormProps> = ({
           <MagnifyingGlassIcon width="24" height="24" />
         </button>
       </Form>
+      <p
+        className={classNames(
+          "text-zinc-800 dark:text-lime-500 absolute -bottom-20 pointer-events-none transition-opacity",
+          {
+            "opacity-0 duration-0": isSmall,
+            "opacity-100 duration-500 delay-500": !isSmall,
+          },
+        )}
+      >
+        Type{" "}
+        <kbd className="font-black border border-slate-700 dark:border-lime-700 px-2 py-1 rounded-md">
+          d
+        </kbd>{" "}
+        or{" "}
+        <kbd className="font-black border border-slate-700 dark:border-lime-700 px-2 py-1 rounded-md">
+          l
+        </kbd>{" "}
+        to toggle color themes!
+      </p>
     </div>
   )
 }

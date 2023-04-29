@@ -25,10 +25,15 @@ export const Package: FC<PackageProps> = ({
   return (
     <section
       key={name}
-      className={classNames("flex flex-col rounded-lg p-5", {
-        "bg-slate-50 shadow-sm": !isExactMatch,
-        "bg-amber-100 shadow-lg": isExactMatch,
-      })}
+      className={classNames(
+        "flex flex-col rounded-lg p-5 border border-transparent",
+        {
+          "bg-slate-50 dark:border-lime-900 dark:bg-zinc-900 shadow-sm":
+            !isExactMatch,
+          "bg-amber-100 dark:border-lime-500 dark:bg-zinc-950 shadow-lg":
+            isExactMatch,
+        },
+      )}
     >
       <h2 className="flex flex-wrap text-lg font-medium">
         <Link className="flex items-center p-1" to={`/${publisher.username}`}>
@@ -62,7 +67,7 @@ export const Package: FC<PackageProps> = ({
             <span>✨</span>
           )} */}
       </h2>
-      <p className="mt-2.5 text-slate-700">{description}</p>
+      <p className="mt-2.5 text-slate-700 dark:text-slate-100">{description}</p>
 
       {Array.isArray(keywords) && (
         <Keywords>
@@ -71,7 +76,7 @@ export const Package: FC<PackageProps> = ({
           ))}
         </Keywords>
       )}
-      <p className="mt-1 text-xs text-slate-600 tracking-wide">
+      <p className="mt-1 text-xs text-slate-600 dark:text-lime-500/80 tracking-wide">
         {version} <span className="inline-block mx-1">•</span> Published{" "}
         {dayjs(date).fromNow()}
       </p>

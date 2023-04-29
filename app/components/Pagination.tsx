@@ -43,7 +43,7 @@ export const Pagination = ({
             "p-2 rounded min-w-[2rem] h-8 flex items-center justify-center font-medium",
             "transition-colors duration-200 ease-in-out",
             "hover:bg-lime-50 active:bg-lime-100",
-            "border-2 border-lime-500 text-lime-950",
+            "border-2 border-lime-500 text-lime-950 dark:text-lime-200",
             { "opacity-50": isFirst },
           )}
           aria-disabled={isFirst}
@@ -61,7 +61,7 @@ export const Pagination = ({
                 type="button"
                 className={classNames(
                   "p-2 rounded min-w-[2rem] h-8 flex items-center justify-center font-medium",
-                  "text-lime-950",
+                  "text-lime-950 dark:text-lime-200",
                 )}
               >
                 ...
@@ -77,9 +77,9 @@ export const Pagination = ({
                 "transition-colors duration-200 ease-in-out",
                 "border-2 text-lime-950",
                 {
-                  "bg-lime-300 shadow-lg border-transparent":
+                  "bg-lime-300 shadow-lg border-transparent dark:text-lime-950":
                     pageNumber === page,
-                  "hover:bg-lime-50 active:bg-lime-100 border-lime-500":
+                  "hover:bg-lime-50 active:bg-lime-100 border-lime-500 dark:text-lime-200":
                     pageNumber !== page,
                 },
               )}
@@ -96,7 +96,7 @@ export const Pagination = ({
             "p-2 rounded min-w-[2rem] h-8 flex items-center justify-center font-medium",
             "transition-colors duration-200 ease-in-out",
             "hover:bg-lime-50 active:bg-lime-100",
-            "border-2 border-lime-500 text-lime-950",
+            "border-2 border-lime-500 text-lime-950 dark:text-lime-200",
             { "opacity-50": isLast },
           )}
           aria-disabled={isLast}

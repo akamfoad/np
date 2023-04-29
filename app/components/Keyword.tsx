@@ -15,10 +15,12 @@ export const Keyword: FC<KeywordProps> = ({ text }) => {
     <button
       className={classNames(
         "px-1.5 py-1 text-xs sm:text-sm font-medium rounded leading-3",
-        "transition-colors duration-200 ease-out",
+        "transition-colors duration-200 ease-out border border-transparent",
         {
-          "bg-amber-100 text-amber-950": isActive,
-          "bg-slate-200 text-slate-900": !isActive,
+          "bg-amber-100 text-amber-950 dark:bg-amber-700/20 dark:text-amber-100 dark:border-amber-200/30":
+            isActive,
+          "bg-slate-200 text-slate-900 dark:bg-transparent dark:text-lime-100 dark:border-lime-500/50":
+            !isActive,
         },
       )}
       onClick={() => {
