@@ -18,6 +18,7 @@ import { themeCookie } from "./shared/cookies/theme.server"
 import type { Theme } from "./utils/types"
 import { useEffect } from "react"
 import classNames from "classnames"
+import { Analytics } from "@vercel/analytics/react"
 
 dayjs.extend(relativeTime)
 
@@ -94,6 +95,7 @@ export default function App() {
         <Outlet />
         <ScrollRestoration />
         <Scripts />
+        {process.env.NODE_ENV === "production" && <Analytics />}
         {process.env.NODE_ENV === "development" && <LiveReload />}
       </body>
     </html>
