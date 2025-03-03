@@ -32,6 +32,7 @@ export const SearchForm: FC<SearchFormProps> = ({
     >
       <div>
         <h1
+          // TODO use view transitions instead of manually doing this
           className={classNames(
             "transition-all ease-in font-black text-center dark:text-lime-500",
             {
