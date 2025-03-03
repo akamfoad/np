@@ -22,7 +22,23 @@ export const loader = async ({ request }: LoaderArgs) => {
 
   const q = searchParams.get("q")
 
-  if (q) newSearchParams.set("text", q)
+  let randomPackageName = "react"
+
+  if (!q) {
+    return json({
+      randomPackageName,
+      packages: [],
+      meta: {
+        page: 0,
+        totalPages: 0,
+        totalPackages: 0,
+        isFirst: false,
+        isLast: false,
+      },
+    })
+  }
+
+  newSearchParams.set("text", q)
 
   const page = searchParams.get("page")
 
@@ -39,6 +55,12 @@ export const loader = async ({ request }: LoaderArgs) => {
   }
 
   const res = await getSearchResults(newSearchParams)
+
+  if (res.status !== 200) {
+    console.error(await res.clone().text())
+    throw new Error("Something went wrong")
+  }
+
   const parsedResponse: SearchResponse = await res.json()
 
   const packages: TransformedPackageType[] = parsedResponse.objects.map(
@@ -60,8 +82,6 @@ export const loader = async ({ request }: LoaderArgs) => {
       }
     },
   )
-
-  let randomPackageName = "react"
 
   if (packages.length > 0) {
     const randomPackage = packages.at(
