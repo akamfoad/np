@@ -1,5 +1,6 @@
 import { json } from "@remix-run/node"
 import type { LoaderArgs } from "@remix-run/node"
+import type { ShouldRevalidateFunction } from "@remix-run/react"
 import { useLoaderData, useSearchParams } from "@remix-run/react"
 
 import { Package } from "~/components/Package"
@@ -12,6 +13,14 @@ import { md5 } from "~/utils/hash.server"
 import { getSearchResults } from "~/api/search"
 import { searchPerPageSize as size } from "~/shared/general"
 import type { SearchResponse, TransformedPackageType } from "~/utils/types"
+
+export const shouldRevalidate: ShouldRevalidateFunction = ({
+  formAction,
+  defaultShouldRevalidate,
+}) => {
+  if (formAction === "/change-theme") return false
+  return defaultShouldRevalidate
+}
 
 export const loader = async ({ request }: LoaderArgs) => {
   const { searchParams } = new URL(request.url)
